@@ -1,0 +1,30 @@
+<div id="invoices-tab" class="tab-content">
+    <div class="card-header">
+        <div class="card-title">
+            <i class="fa-solid fa-receipt"></i> Invoices Issued
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="billSearch" onkeyup="filterTable('billsTable', 'billSearch')" placeholder="Search Invoices...">
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="billsTable">
+            <thead>
+                <tr>
+                    <th>Receipt ID</th>
+                    <th>Appt No.</th>
+                    <th>Patient Name</th>
+                    <th>Treatment</th>
+                    <th>Consultation Fee</th>
+                    <th>Treatment Fee</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody id="docBillBody">
+                <tr><td colspan="7" style="text-align:center;">Loading invoices...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>

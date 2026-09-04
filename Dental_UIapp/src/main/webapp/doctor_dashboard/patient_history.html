@@ -1,0 +1,30 @@
+<div id="patient-history-tab" class="tab-content">
+    <div class="card-header">
+        <div class="card-title">
+            <i class="fa-solid fa-clock-rotate-left"></i> My Patients Treatment History
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="patientHistorySearch" onkeyup="filterTable('patientHistoryTable', 'patientHistorySearch')" placeholder="Search Patient Name or ID...">
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="patientHistoryTable">
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Patient Name</th>
+                    <th>Contact</th>
+                    <th>Appt No.</th>
+                    <th>Treatment Undertaken</th>
+                    <th>Appointment Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="patientHistoryBody">
+                <tr><td colspan="7" style="text-align:center;">Loading patient history...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>

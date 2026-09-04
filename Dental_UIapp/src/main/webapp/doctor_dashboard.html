@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Portal - Sunrise Dental Clinic</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <div class="navbar">
+        <div class="brand">
+            <i class="fa-solid fa-tooth"></i> Sunrise Dental Portal
+        </div>
+        <div class="user-info">
+            <div class="user-profile">
+                <i class="fa-solid fa-user-doctor"></i>
+                <span id="docNavName">Dr. Loading...</span>
+            </div>
+            <button onclick="logoutDoctor()" class="btn-logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Stat Widgets -->
+      <!-- Doctor Dashboard Stat Widgets (5 Cards) -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="fa-solid fa-calendar-check"></i></div>
+                <div class="stat-details">
+                    <h4>Assigned Appointments</h4>
+                    <p id="statApptCount">0</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon teal"><i class="fa-solid fa-clock"></i></div>
+                <div class="stat-details">
+                    <h4>Pending Queue</h4>
+                    <p id="statPendingCount">0</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="fa-solid fa-check-double"></i></div>
+                <div class="stat-details">
+                    <h4>Completed Cases</h4>
+                    <p id="statCompletedCount">0</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <div class="stat-details">
+                    <h4>Issued Invoices</h4>
+                    <p id="statBillCount">0</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon orange"><i class="fa-solid fa-sack-dollar"></i></div>
+                <div class="stat-details">
+                    <h4>Total Billed (LKR)</h4>
+                    <p id="statRevenueCount">0.00</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button id="tab-btn-appointments-tab" class="tab-btn active" onclick="switchTab('appointments-tab')">
+                <i class="fa-solid fa-list-check"></i> My Appointments
+            </button>
+            <button id="tab-btn-invoices-tab" class="tab-btn" onclick="switchTab('invoices-tab')">
+                <i class="fa-solid fa-receipt"></i> My Issued Invoices
+            </button>
+            <button id="tab-btn-patient-history-tab" class="tab-btn" onclick="switchTab('patient-history-tab')">
+                <i class="fa-solid fa-clock-rotate-left"></i> Patient History
+            </button>
+             <button id="tab-btn-doc-guide-tab" class="tab-btn" onclick="switchTab('doc-guide-tab')">
+                <i class="fa-solid fa-circle-question"></i> Doctor Guide
+            </button>
+        </div>
+
+        <!-- Dynamic Content Area -->
+        <div id="doctor-dynamic-content"></div>
+
+    </div>
+
+    <script src="js/doctor_dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunrise Dental Clinic - Staff & Doctor Login</title>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body { 
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.65) 0%, rgba(9, 20, 40, 0.75) 100%), 
+                        url('images/dental-bg.png') no-repeat center center fixed; 
+            background-size: cover; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+
+        /* Ultra-Clean Transparent Glass Card */
+        .login-card { 
+            background: rgba(255, 255, 255, 0.22); 
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 42px 36px; 
+            border-radius: 28px; 
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.2); 
+            width: 380px; 
+            text-align: center; 
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .login-card .logo-box {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.35);
+            color: #0284c7;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 16px auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .login-card h2 { 
+            font-size: 23px; 
+            font-weight: 800;
+            margin-bottom: 4px; 
+            color: #ffffff; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: -0.5px;
+        }
+
+        .login-card p.subtitle {
+            font-size: 13px;
+            color: #e2e8f0;
+            margin-bottom: 25px;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .input-group { 
+            margin-bottom: 18px; 
+            text-align: left; 
+        }
+
+        .input-group label { 
+            font-size: 12.5px; 
+            font-weight: 700; 
+            color: #f1f5f9; 
+            display: block; 
+            margin-bottom: 6px; 
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i.input-icon {
+            position: absolute;
+            left: 14px;
+            color: #475569;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .input-wrapper input { 
+            width: 100%; 
+            padding: 12px 44px 12px 40px; 
+            background: rgba(255, 255, 255, 0.9);
+            border: 1.5px solid rgba(255, 255, 255, 0.5); 
+            border-radius: 12px; 
+            font-size: 14px; 
+            font-weight: 600;
+            color: #0f172a;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .input-wrapper input:focus {
+            background: #ffffff;
+            border-color: #0284c7;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.3);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 15px;
+            z-index: 2;
+            transition: color 0.2s ease;
+        }
+
+        .toggle-password:hover {
+            color: #0284c7;
+        }
+
+        .btn-login { 
+            width: 100%; 
+            padding: 13px; 
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); 
+            color: white; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            border-radius: 12px; 
+            font-size: 15px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.45);
+            transition: all 0.25s ease; 
+            margin-top: 22px; 
+        }
+
+        .btn-login:hover { 
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.6);
+        }
+
+        .error-msg { 
+            color: #ef4444; 
+            font-size: 12.5px; 
+            font-weight: 700;
+            margin-top: 16px; 
+            display: none; 
+            background: rgba(254, 226, 226, 0.95);
+            padding: 10px 14px;
+            border-radius: 10px; 
+            border: 1px solid #fca5a5;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="logo-box">
+            <i class="fa-solid fa-tooth"></i>
+        </div>
+        <h2>Portal Login</h2>
+        <p class="subtitle">Sunrise Dental Clinic Management System</p>
+        
+        <form onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <label>Username</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-user input-icon"></i>
+                    <input type="text" id="username" placeholder="Enter username" required autocomplete="off">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                    <i class="fa-solid fa-eye toggle-password" id="eyeIcon" onclick="togglePasswordVisibility()"></i>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-login">
+                <i class="fa-solid fa-right-to-bracket"></i> Sign In to Portal
+            </button>
+        </form>
+
+        <!-- Dynamic Error Container -->
+        <div id="errorBox" class="error-msg">
+            <i class="fa-solid fa-circle-exclamation"></i> <span id="errorText">Invalid Credentials</span>
+        </div>
+    </div>
+
+    <script>
+        // Active Session Guard: Token එකක් පවතී නම් කෙලින්ම අදාළ Dashboard එකට Redirect කරයි
+        (function redirectIfLoggedIn() {
+            const token = sessionStorage.getItem('authToken') || localStorage.getItem('authToken');
+            const role = localStorage.getItem('userRole');
+            const user = localStorage.getItem('loggedUser');
+            
+            if (token && user && role) {
+                if (role.toLowerCase() === 'doctor') {
+                    window.location.replace('doctor_dashboard.html');
+                } else {
+                    window.location.replace('staff_dashboard.html');
+                }
+            }
+        })();
+
+        // Back Button Cache Guard
+        window.addEventListener('pageshow', function(event) {
+            const token = sessionStorage.getItem('authToken') || localStorage.getItem('authToken');
+            const role = localStorage.getItem('userRole');
+            const user = localStorage.getItem('loggedUser');
+            
+            if (token && user && role) {
+                if (role.toLowerCase() === 'doctor') {
+                    window.location.replace('doctor_dashboard.html');
+                } else {
+                    window.location.replace('staff_dashboard.html');
+                }
+            }
+        });
+
+        const API_ENDPOINTS = [
+            'http://localhost:8080/Sunrise_Dental_Clinic/api',
+            'http://localhost:8080/Sunrise_Dental_Clinic-1.0-SNAPSHOT/api',
+            'http://localhost:8080/Sunrise%20Dental%20Clinic/api'
+        ];
+
+        // Password Show/Hide Toggle
+        function togglePasswordVisibility() {
+            const pwdInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                pwdInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        function showError(msg) {
+            const errorBox = document.getElementById('errorBox');
+            const errorText = document.getElementById('errorText');
+            if (errorBox && errorText) {
+                errorText.innerText = msg;
+                errorBox.style.display = 'block';
+            } else {
+                alert(msg);
+            }
+        }
+
+        async function handleLogin(event) {
+            if (event) event.preventDefault();
+
+            const usernameInput = document.getElementById('username').value.trim();
+            const passwordInput = document.getElementById('password').value.trim();
+            const errorBox = document.getElementById('errorBox');
+            if (errorBox) errorBox.style.display = 'none';
+
+            if (!usernameInput || !passwordInput) {
+                showError('Please enter both username and password.');
+                return;
+            }
+
+            let responseData = null;
+            let lastError = null;
+
+            for (const baseUrl of API_ENDPOINTS) {
+                try {
+                    const res = await fetch(`${baseUrl}/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            username: usernameInput,
+                            password: passwordInput
+                        })
+                    });
+
+                    if (res.ok) {
+                        responseData = await res.json();
+                        break;
+                    } else if (res.status === 401 || res.status === 400) {
+                        const err = await res.json();
+                        showError(err.message || 'Invalid username or password!');
+                        return;
+                    }
+                } catch (err) {
+                    lastError = err;
+                }
+            }
+
+            if (responseData && (responseData.status === 'success' || responseData.token || responseData.role)) {
+                // Token සහ Session Data ආරක්ෂිතව Store කිරීම
+                const token = responseData.token || ('SUNRISE_TOKEN_' + Date.now() + '_' + Math.random().toString(36).substring(2));
+                const displayName = responseData.full_name || responseData.fullName || responseData.name || responseData.username || usernameInput;
+                const role = (responseData.role || 'Staff').trim();
+
+                sessionStorage.setItem('authToken', token);
+                localStorage.setItem('authToken', token);
+                localStorage.setItem('loggedUser', displayName);
+                localStorage.setItem('doctorName', displayName);
+                localStorage.setItem('userRole', role);
+
+                // History replace මඟින් Redirect කිරීම (Back Button Protection)
+                if (role.toLowerCase() === 'doctor') {
+                    window.location.replace('doctor_dashboard.html');
+                } else {
+                    window.location.replace('staff_dashboard.html');
+                }
+            } else if (!errorBox || errorBox.style.display !== 'block') {
+                showError('Login failed. Please check your credentials or server connection.');
+            }
+        }
+    </script>
+
+</body>
+</html>

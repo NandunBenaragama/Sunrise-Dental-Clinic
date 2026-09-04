@@ -1,0 +1,82 @@
+<div id="appointments-tab" class="tab-content active">
+    <div class="card-header">
+        <div class="card-title">
+            <i class="fa-solid fa-list-check"></i> Patient Appointments Assigned to Me
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="appointmentSearch" onkeyup="filterTable('appointmentTable', 'appointmentSearch')" placeholder="Search Patients or Appt No...">
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="appointmentTable">
+            <thead>
+                <tr>
+                    <th>Appt No.</th>
+                    <th>Patient ID</th>
+                    <th>Patient Name</th>
+                    <th>Treatment</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                    <th>Update Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="docApptBody">
+                <tr><td colspan="8" style="text-align:center;">Loading appointments...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- DOCTOR BILL CALCULATOR DISPLAY -->
+    <div id="invoiceSection" class="invoice-box" style="display:none; margin-top:25px;">
+        <div class="invoice-header">
+            <h4><i class="fa-solid fa-file-invoice-dollar"></i> Patient Billing Summary</h4>
+            <span class="badge badge-completed"><i class="fa-solid fa-shield-halved"></i> Live Calculated</span>
+        </div>
+
+        <form id="saveBillForm" onsubmit="handleSaveBill(event)">
+            <input type="hidden" id="formApptNum">
+            <input type="hidden" id="formPName">
+            <input type="hidden" id="formTreatment">
+            <input type="hidden" id="formConsultFee" value="2000.00">
+            <input type="hidden" id="formTreatmentFee">
+            <input type="hidden" id="formTotalAmount">
+
+            <div class="receipt-details">
+                <div>
+                    <p>Appointment Number</p>
+                    <span id="billAppt">-</span>
+                </div>
+                <div>
+                    <p>Patient Full Name</p>
+                    <span id="billName">-</span>
+                </div>
+                <div>
+                    <p>Treatment Category</p>
+                    <span id="billTreatment">-</span>
+                </div>
+            </div>
+
+            <div class="amount-summary">
+                <div class="amount-row">
+                    <span>Consultation Base Fee</span>
+                    <span>LKR 2,000.00</span>
+                </div>
+                <div class="amount-row">
+                    <span>Specific Treatment Fee</span>
+                    <span>LKR <span id="billTreatmentFee">0.00</span></span>
+                </div>
+                <div class="amount-row total">
+                    <span>Net Payable Amount</span>
+                    <span>LKR <span id="billTotal">0.00</span></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <i class="fa-solid fa-floppy-disk"></i> Issue & Save Invoice Receipt
+            </button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard - Sunrise Dental Clinic</title>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS & JS -->
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="js/dashboard.js" defer></script>
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <div class="navbar no-print">
+        <div class="brand">
+            <i class="fa-solid fa-tooth"></i> Sunrise Dental Staff Portal
+        </div>
+        <div class="user-info">
+            <div class="user-profile" onclick="switchTab('staff-profile')" style="cursor: pointer;" title="View & Edit Profile">
+                <i class="fa-solid fa-user-gear"></i>
+                <span id="navStaffName">Staff Officer</span>
+            </div>
+            <a href="javascript:void(0)" onclick="logoutStaff()" class="btn-logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <div class="container no-print">
+
+        <!-- Dashboard Stat Widgets -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="fa-solid fa-user-doctor"></i></div>
+                <div class="stat-details">
+                    <h4>Doctors</h4>
+                    <p id="statDocCount">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon teal"><i class="fa-solid fa-kit-medical"></i></div>
+                <div class="stat-details">
+                    <h4>Treatments</h4>
+                    <p id="statTreatCount">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="fa-solid fa-calendar-plus"></i></div>
+                <div class="stat-details">
+                    <h4>Bookings</h4>
+                    <p id="statApptCount">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple"><i class="fa-solid fa-hospital-user"></i></div>
+                <div class="stat-details">
+                    <h4>Patient Queue</h4>
+                    <p id="statPendingCount">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange"><i class="fa-solid fa-file-invoice"></i></div>
+                <div class="stat-details">
+                    <h4>Receipts</h4>
+                    <p id="statBillCount">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button id="tab-btn-add-doctor" class="tab-btn active" onclick="switchTab('add-doctor')">
+                <i class="fa-solid fa-user-doctor"></i> Register Doctor
+            </button>
+            <button id="tab-btn-register-patient" class="tab-btn" onclick="switchTab('register-patient')">
+                <i class="fa-solid fa-hospital-user"></i> Register Patient
+            </button>
+            <button id="tab-btn-add-treatment" class="tab-btn" onclick="switchTab('add-treatment')">
+                <i class="fa-solid fa-kit-medical"></i> Add Treatment
+            </button>
+            <button id="tab-btn-add-appointment" class="tab-btn" onclick="switchTab('add-appointment')">
+                <i class="fa-solid fa-calendar-plus"></i> New Appointment
+            </button>
+            <button id="tab-btn-schedule-details" class="tab-btn" onclick="switchTab('schedule-details')">
+                <i class="fa-solid fa-calendar-check"></i> Schedule & Details
+            </button>
+            <button id="tab-btn-saved-receipts" class="tab-btn" onclick="switchTab('saved-receipts')">
+                <i class="fa-solid fa-file-invoice-dollar"></i> Saved Receipts
+            </button>
+            <button id="tab-btn-staff-guide" class="tab-btn" onclick="switchTab('staff-guide')">
+                <i class="fa-solid fa-circle-question"></i> Staff Guide
+            </button>
+            <button id="tab-btn-staff-profile" class="tab-btn" onclick="switchTab('staff-profile')">
+                <i class="fa-solid fa-id-badge"></i> My Profile
+            </button>
+        </div>
+
+        <!-- Dynamic Container for Included HTML Components -->
+        <div id="dynamic-content-area"></div>
+
+    </div>
+
+    <!-- Container for Print Template -->
+    <div id="print-template-container"></div>
+
+</body>
+</html>

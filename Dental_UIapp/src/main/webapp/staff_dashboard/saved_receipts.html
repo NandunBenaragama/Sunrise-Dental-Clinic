@@ -1,0 +1,31 @@
+<div id="billing-history" class="tab-content">
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3><i class="fa-solid fa-file-invoice-dollar"></i> Saved Receipts & Billing History</h3>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchBills" placeholder="Search Receipts..." onkeyup="filterTable('receiptsTable', 'searchBills')">
+            </div>
+        </div>
+
+        <table class="data-table" id="receiptsTable">
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Appt No.</th>
+                    <th>Patient Name</th>
+                    <th>Treatment</th>
+                    <th>Consultation Fee</th>
+                    <th>Treatment Fee</th>
+                    <th>Total Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="billTableBody">
+                <tr>
+                    <td colspan="8" style="text-align:center;">Loading receipts...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
