@@ -44,8 +44,28 @@
             <artifactId>Design_Patterns_Core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- JUnit 5 (test scope only) -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Test-only JAX-RS RuntimeDelegate implementation. The production
+             app relies on the application server to supply this at deploy
+             time (jakarta.jakartaee-api above is "provided" and API-only);
+             unit tests run outside a container, so Response.ok()/.status()
+             need an implementation on the test classpath. -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+            <version>3.1.7</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -61,6 +81,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
             </plugin>
         </plugins>
     </build>
