@@ -4,104 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Dashboard - Sunrise Dental Clinic</title>
-    
+
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- CSS & JS -->
     <link rel="stylesheet" href="css/dashboard.css">
     <script src="js/dashboard.js" defer></script>
 </head>
 <body>
 
-    <!-- Header Navbar -->
-    <div class="navbar no-print">
-        <div class="brand">
-            <i class="fa-solid fa-tooth"></i> Sunrise Dental Staff Portal
+    <!-- Top Identity Header -->
+    <header class="app-topbar no-print">
+        <div class="app-topbar-utility">
+            <span><i class="fa-solid fa-shield-halved"></i> Secure Staff Console</span>
+            <span><i class="fa-solid fa-building-user"></i> Sunrise Dental Clinic &bull; Front Desk</span>
         </div>
-        <div class="user-info">
-            <div class="user-profile" onclick="switchTab('staff-profile')" style="cursor: pointer;" title="View & Edit Profile">
-                <i class="fa-solid fa-user-gear"></i>
-                <span id="navStaffName">Staff Officer</span>
+        <div class="app-topbar-main">
+            <div class="brand-lockup">
+                <div class="mark">
+                    <svg viewBox="0 0 100 100" width="20" height="20" fill="currentColor" aria-hidden="true">
+                        <path d="M50 14c-11 0-20.5 6.4-23.8 15.9-2.7 7.8-1.2 14.8 0.6 22.4 1.9 8 4 15.7 5.6 24.9 0.8 4.6 3.6 8.8 7.6 8.8 4.5 0 6.1-5.2 6.9-13.9 0.6-6.4 1.6-11.1 3.1-11.1s2.5 4.7 3.1 11.1c0.8 8.7 2.4 13.9 6.9 13.9 4 0 6.8-4.2 7.6-8.8 1.6-9.2 3.7-16.9 5.6-24.9 1.8-7.6 3.3-14.6 0.6-22.4C70.5 20.4 61 14 50 14z"/>
+                    </svg>
+                </div>
+                <div class="text">
+                    <span>Staff Console</span>
+                    <strong>Sunrise Dental Clinic</strong>
+                </div>
             </div>
-            <a href="javascript:void(0)" onclick="logoutStaff()" class="btn-logout">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-            </a>
+
+            <div class="identity-cluster">
+                <div class="identity-chip" onclick="switchTab('staff-profile'); scrollToSection('staff-profile');" title="View & Edit Profile">
+                    <div class="avatar"><i class="fa-solid fa-user-gear"></i></div>
+                    <div class="meta">
+                        <strong id="navStaffName">Staff Officer</strong>
+                        <small>Front Desk</small>
+                    </div>
+                </div>
+                <a href="javascript:void(0)" onclick="logoutStaff()" class="btn-logout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                </a>
+            </div>
         </div>
-    </div>
+    </header>
+
+    <!-- Top Navigation: flat, standalone, text-only links -->
+    <nav class="top-nav no-print">
+        <button id="tab-btn-add-doctor" class="tab-btn active" onclick="switchTab('add-doctor'); scrollToSection('add-doctor');">Doctors</button>
+        <button id="tab-btn-register-patient" class="tab-btn" onclick="switchTab('register-patient'); scrollToSection('register-patient');">Patients</button>
+        <button id="tab-btn-add-treatment" class="tab-btn" onclick="switchTab('add-treatment'); scrollToSection('add-treatment');">Treatments</button>
+        <button id="tab-btn-add-appointment" class="tab-btn" onclick="switchTab('add-appointment'); scrollToSection('add-appointment');">New Booking</button>
+        <button id="tab-btn-schedule-details" class="tab-btn" onclick="switchTab('schedule-details'); scrollToSection('schedule-details');">Schedule</button>
+        <button id="tab-btn-saved-receipts" class="tab-btn" onclick="switchTab('saved-receipts'); scrollToSection('saved-receipts');">Receipts</button>
+        <button id="tab-btn-staff-guide" class="tab-btn" onclick="switchTab('staff-guide'); scrollToSection('staff-guide');">Help</button>
+        <button id="tab-btn-staff-profile" class="tab-btn" onclick="switchTab('staff-profile'); scrollToSection('staff-profile');">Profile</button>
+    </nav>
 
     <div class="container no-print">
 
-        <!-- Dashboard Stat Widgets -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon blue"><i class="fa-solid fa-user-doctor"></i></div>
-                <div class="stat-details">
-                    <h4>Doctors</h4>
-                    <p id="statDocCount">0</p>
-                </div>
+        <!-- Dashboard Welcome / Hero Area -->
+        <div class="dash-hero">
+            <div class="dash-hero-text">
+                <span class="eyebrow">Daily Front Desk Operations</span>
+                <h1 id="staffHeroName">Welcome back</h1>
+                <p>Create records, manage the clinic roster and track today's schedule from one place.</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon teal"><i class="fa-solid fa-kit-medical"></i></div>
-                <div class="stat-details">
-                    <h4>Treatments</h4>
-                    <p id="statTreatCount">0</p>
-                </div>
+            <div class="dash-hero-actions">
+                <button type="button" class="btn-hero primary" onclick="switchTab('add-appointment'); scrollToSection('add-appointment');">New Booking</button>
+                <button type="button" class="btn-hero ghost" onclick="switchTab('schedule-details'); scrollToSection('schedule-details');">Open Schedule</button>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fa-solid fa-calendar-plus"></i></div>
-                <div class="stat-details">
-                    <h4>Bookings</h4>
-                    <p id="statApptCount">0</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fa-solid fa-hospital-user"></i></div>
-                <div class="stat-details">
-                    <h4>Patient Queue</h4>
-                    <p id="statPendingCount">0</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon orange"><i class="fa-solid fa-file-invoice"></i></div>
-                <div class="stat-details">
-                    <h4>Receipts</h4>
-                    <p id="statBillCount">0</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navigation Tabs -->
-        <div class="nav-tabs">
-            <button id="tab-btn-add-doctor" class="tab-btn active" onclick="switchTab('add-doctor')">
-                <i class="fa-solid fa-user-doctor"></i> Register Doctor
-            </button>
-            <button id="tab-btn-register-patient" class="tab-btn" onclick="switchTab('register-patient')">
-                <i class="fa-solid fa-hospital-user"></i> Register Patient
-            </button>
-            <button id="tab-btn-add-treatment" class="tab-btn" onclick="switchTab('add-treatment')">
-                <i class="fa-solid fa-kit-medical"></i> Add Treatment
-            </button>
-            <button id="tab-btn-add-appointment" class="tab-btn" onclick="switchTab('add-appointment')">
-                <i class="fa-solid fa-calendar-plus"></i> New Appointment
-            </button>
-            <button id="tab-btn-schedule-details" class="tab-btn" onclick="switchTab('schedule-details')">
-                <i class="fa-solid fa-calendar-check"></i> Schedule & Details
-            </button>
-            <button id="tab-btn-saved-receipts" class="tab-btn" onclick="switchTab('saved-receipts')">
-                <i class="fa-solid fa-file-invoice-dollar"></i> Saved Receipts
-            </button>
-            <button id="tab-btn-staff-guide" class="tab-btn" onclick="switchTab('staff-guide')">
-                <i class="fa-solid fa-circle-question"></i> Staff Guide
-            </button>
-            <button id="tab-btn-staff-profile" class="tab-btn" onclick="switchTab('staff-profile')">
-                <i class="fa-solid fa-id-badge"></i> My Profile
-            </button>
         </div>
 
         <!-- Dynamic Container for Included HTML Components -->
-        <div id="dynamic-content-area"></div>
+        <div class="workspace-shell">
+            <div id="dynamic-content-area"></div>
+        </div>
 
     </div>
 

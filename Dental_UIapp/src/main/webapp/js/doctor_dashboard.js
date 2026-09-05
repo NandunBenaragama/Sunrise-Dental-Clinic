@@ -1,8 +1,6 @@
 // Dynamic Base URL Configuration
 const API_ENDPOINTS = [
-    'http://localhost:8080/Sunrise_Dental_Clinic/api',
-    'http://localhost:8080/Sunrise_Dental_Clinic-1.0-SNAPSHOT/api',
-    'http://localhost:8080/Sunrise%20Dental%20Clinic/api'
+    'http://localhost:8080/Sunrise_Dental_Clinic/webresources'
 ];
 
 // Strict Token Auth Guard: Token එකක් හෝ Doctor session එකක් නොමැති නම් කෙලින්ම Login එකට Redirect කිරීම
@@ -82,6 +80,9 @@ async function apiFetch(endpoint, options = {}) {
 async function loadDoctorComponents() {
     const navNameEl = document.getElementById('docNavName');
     if (navNameEl) navNameEl.innerText = 'Dr. ' + loggedDoctorName.replace(/^dr\.?\s*/i, '');
+
+    const docHeroName = document.getElementById('docHeroName');
+    if (docHeroName) docHeroName.innerText = 'Welcome back, Dr. ' + loggedDoctorName.replace(/^dr\.?\s*/i, '');
 
     const files = [
         'doctor_dashboard/appointments.html',
@@ -181,13 +182,10 @@ async function fetchDoctorAppointments() {
             if (st.toLowerCase() === 'completed' || st.toLowerCase() === 'done') completedCount++;
 
             let badgeClass = 'badge-pending';
-            let icon = 'fa-regular fa-clock';
-            if (st.toLowerCase() === 'done') { 
-                badgeClass = 'badge-done'; 
-                icon = 'fa-solid fa-spinner'; 
-            } else if (st.toLowerCase() === 'completed') { 
-                badgeClass = 'badge-completed'; 
-                icon = 'fa-solid fa-check-double'; 
+            if (st.toLowerCase() === 'done') {
+                badgeClass = 'badge-done';
+            } else if (st.toLowerCase() === 'completed') {
+                badgeClass = 'badge-completed';
             }
 
             const safePName = pName.replace(/'/g, "\\'");
@@ -196,11 +194,11 @@ async function fetchDoctorAppointments() {
             tbody.innerHTML += `
                 <tr>
                     <td><strong>${apptNo}</strong></td>
-                    <td><span style="color:#0284c7; font-weight:700;">${patId}</span></td>
+                    <td><span style="color:var(--teal-700); font-weight:700;">${patId}</span></td>
                     <td><strong>${pName}</strong></td>
                     <td>${treatment}</td>
-                    <td><i class="fa-regular fa-calendar" style="color:var(--text-muted); margin-right:4px;"></i> ${dateTime}</td>
-                    <td><span class="badge ${badgeClass}"><i class="${icon}"></i> ${st}</span></td>
+                    <td>${dateTime}</td>
+                    <td><span class="badge ${badgeClass}">${st}</span></td>
                     <td>
                         <div style="display:flex; gap:6px;">
                             <select id="statusSelect_${apptNo}" class="select-status">
@@ -212,9 +210,7 @@ async function fetchDoctorAppointments() {
                         </div>
                     </td>
                     <td>
-                        <button class="btn-calc" onclick="calculateBillViaAPI('${apptNo}', '${safePName}', '${safeTreat}')">
-                            <i class="fa-solid fa-calculator"></i> Calculate
-                        </button>
+                        <button class="btn-calc" onclick="calculateBillViaAPI('${apptNo}', '${safePName}', '${safeTreat}')">Calculate</button>
                     </td>
                 </tr>`;
         });
@@ -314,7 +310,7 @@ async function fetchDoctorBills() {
                         <td>${treat}</td>
                         <td>LKR ${consult.toFixed(2)}</td>
                         <td>LKR ${treatFee.toFixed(2)}</td>
-                        <td><strong style="color:#10b981;">LKR ${total.toFixed(2)}</strong></td>
+                        <td><strong style="color:var(--success);">LKR ${total.toFixed(2)}</strong></td>
                     </tr>`;
             }
         });
@@ -451,24 +447,21 @@ async function fetchDoctorPatientHistory() {
             const st = item.status || 'Pending';
 
             let badgeClass = 'badge-pending';
-            let icon = 'fa-regular fa-clock';
-            if (st.toLowerCase() === 'done') { 
-                badgeClass = 'badge-done'; 
-                icon = 'fa-solid fa-spinner'; 
-            } else if (st.toLowerCase() === 'completed') { 
-                badgeClass = 'badge-completed'; 
-                icon = 'fa-solid fa-check-double'; 
+            if (st.toLowerCase() === 'done') {
+                badgeClass = 'badge-done';
+            } else if (st.toLowerCase() === 'completed') {
+                badgeClass = 'badge-completed';
             }
 
             tbody.innerHTML += `
                 <tr>
-                    <td><strong style="color:#0284c7;">${patId}</strong></td>
+                    <td><strong style="color:var(--teal-700);">${patId}</strong></td>
                     <td><strong>${patName}</strong></td>
-                    <td><i class="fa-solid fa-phone" style="color:var(--text-muted); margin-right:4px;"></i> ${contact}</td>
+                    <td>${contact}</td>
                     <td><strong>${apptNo}</strong></td>
                     <td>${treatment}</td>
-                    <td><i class="fa-regular fa-calendar" style="color:var(--text-muted); margin-right:4px;"></i> ${dt}</td>
-                    <td><span class="badge ${badgeClass}"><i class="${icon}"></i> ${st}</span></td>
+                    <td>${dt}</td>
+                    <td><span class="badge ${badgeClass}">${st}</span></td>
                 </tr>
             `;
         });
@@ -497,6 +490,18 @@ function filterTable(tableId, inputId) {
             }
         }
         tr[i].style.display = show ? '' : 'none';
+    }
+}
+
+// 9. Smooth-scroll helper for the continuous doctor dashboard nav.
+// switchTab() still runs first (keeps its existing active-state/data-refresh
+// behaviour) — this only adds the visible scroll for the now-always-visible sections.
+function scrollToSection(tabId) {
+    let el = document.getElementById(tabId);
+    if (!el && tabId === 'appointments-tab') el = document.getElementById('my-appointments');
+    if (!el && tabId === 'my-appointments') el = document.getElementById('appointments-tab');
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
 

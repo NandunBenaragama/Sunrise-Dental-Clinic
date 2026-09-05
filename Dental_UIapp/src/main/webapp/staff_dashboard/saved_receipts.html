@@ -1,23 +1,28 @@
-<div id="billing-history" class="tab-content">
-    <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h3><i class="fa-solid fa-file-invoice-dollar"></i> Saved Receipts & Billing History</h3>
+<div id="saved-receipts" class="tab-content">
+
+    <div class="data-panel">
+        <div class="data-panel-head">
+            <div>
+                <h3>Receipts &amp; Billing History</h3>
+                <p>Every invoice issued across the clinic, ready to reprint.</p>
+            </div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchBills" placeholder="Search Receipts..." onkeyup="filterTable('receiptsTable', 'searchBills')">
+                <input type="text" id="searchBills" placeholder="Search receipts" onkeyup="filterTable('receiptsTable', 'searchBills')">
             </div>
         </div>
 
-        <table class="data-table" id="receiptsTable">
+        <div class="data-panel-table-wrap">
+        <table id="receiptsTable">
             <thead>
                 <tr>
                     <th>Bill ID</th>
                     <th>Appt No.</th>
-                    <th>Patient Name</th>
+                    <th>Patient</th>
                     <th>Treatment</th>
-                    <th>Consultation Fee</th>
+                    <th>Consultation</th>
                     <th>Treatment Fee</th>
-                    <th>Total Amount</th>
+                    <th>Total</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -27,5 +32,6 @@
                 </tr>
             </tbody>
         </table>
+        </div>
     </div>
 </div>

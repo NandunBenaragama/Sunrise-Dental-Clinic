@@ -1,62 +1,42 @@
 <div class="tab-content" id="staff-profile">
-    <div class="card" style="max-width: 850px; margin: 0 auto;">
-        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-            <h3><i class="fa-solid fa-id-badge" style="color:var(--primary);"></i> Staff Member Profile & Security</h3>
-            <span id="profRoleBadge" class="badge badge-done" style="font-size: 13px;">
-                <i class="fa-solid fa-shield-halved"></i> Receptionist
-            </span>
+
+    <div class="profile-layout">
+        <div class="profile-identity">
+            <div class="profile-avatar"><i class="fa-solid fa-user-tie"></i></div>
+            <h4 id="profDisplayTitle">Saman Perera</h4>
+            <span id="profRoleBadge" class="badge badge-done">Receptionist</span>
         </div>
 
-        <div style="display: flex; gap: 30px; align-items: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border); flex-wrap: wrap;">
-            <div style="width: 80px; height: 80px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 34px; box-shadow: 0 4px 12px var(--primary-glow);">
-                <i class="fa-solid fa-user-tie"></i>
-            </div>
-            <div>
-                <h4 id="profDisplayTitle" style="font-size: 18px; font-weight: 800; color: var(--secondary); margin-bottom: 4px;">Saman Perera</h4>
-                <p style="font-size: 13px; color: var(--text-muted);">
-                    <i class="fa-solid fa-circle-check" style="color: var(--accent); margin-right: 4px;"></i> Active System Account &bull; Sunrise Dental Clinic
-                </p>
-            </div>
-        </div>
-
-        <form onsubmit="handleUpdateStaffProfile(event)">
-            <h4 style="font-size: 14.5px; font-weight: 700; color: var(--secondary); margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-user-gear" style="color: var(--primary);"></i> Personal Information
-            </h4>
-            
-            <div class="form-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 20px;">
-                <div class="input-group">
-                    <label>System Username (Read-Only)</label>
-                    <input type="text" id="profUsername" readonly style="background-color: #f1f5f9; cursor: not-allowed; font-weight: 700; color: var(--text-muted);">
+        <div class="profile-settings">
+            <form onsubmit="handleUpdateStaffProfile(event)" class="form-card-body">
+                <div class="form-card-head" style="margin-bottom: 18px;">
+                    <h3>Personal Information</h3>
                 </div>
-                <div class="input-group">
-                    <label>Full Display Name *</label>
+
+                <div class="field">
+                    <label for="profUsername">System Username (read-only)</label>
+                    <input type="text" id="profUsername" readonly style="background-color: var(--mint-100); cursor: not-allowed; font-weight: 700; color: var(--text-muted);">
+                </div>
+                <div class="field">
+                    <label for="profFullName">Full Display Name *</label>
                     <input type="text" id="profFullName" placeholder="e.g. Saman Perera" required>
                 </div>
-            </div>
 
-            <div class="section-divider" style="margin: 25px 0 20px 0; border-top: 1px dashed var(--border);"></div>
+                <div class="form-card-head" style="margin: 10px 0 18px 0;">
+                    <h3>Security</h3>
+                </div>
 
-            <h4 style="font-size: 14.5px; font-weight: 700; color: var(--secondary); margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-lock" style="color: #ea580c;"></i> Security & Password Credentials
-            </h4>
-
-            <div class="form-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 25px;">
-                <div class="input-group">
-                    <label>Current Password</label>
+                <div class="field">
+                    <label for="profCurrentPass">Current Password</label>
                     <input type="password" id="profCurrentPass" placeholder="Enter current password">
                 </div>
-                <div class="input-group">
-                    <label>New Password (Optional)</label>
+                <div class="field">
+                    <label for="profNewPass">New Password (optional)</label>
                     <input type="password" id="profNewPass" placeholder="Enter new password">
                 </div>
-            </div>
 
-            <div style="display: flex; justify-content: flex-end; gap: 12px;">
-                <button type="submit" class="btn-submit">
-                    <i class="fa-solid fa-floppy-disk"></i> Save Profile Changes
-                </button>
-            </div>
-        </form>
+                <button type="submit" class="btn-primary-flat">Save Profile Changes</button>
+            </form>
+        </div>
     </div>
 </div>

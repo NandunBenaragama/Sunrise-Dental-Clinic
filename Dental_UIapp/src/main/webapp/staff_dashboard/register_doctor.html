@@ -1,66 +1,67 @@
 <div class="tab-content" id="add-doctor">
-    <div class="card">
-        <div class="card-header">
-            <h3><i class="fa-solid fa-user-doctor" style="color:var(--primary);"></i> Register New Dental Specialist & Create Login</h3>
+
+    <div class="form-card">
+        <div class="form-card-head">
+            <h3>Doctor Registration</h3>
+            <p>Create a specialist profile and issue their portal login credentials.</p>
         </div>
-        
-        <form onsubmit="event.preventDefault(); submitDoctor();">
-            <div class="form-grid">
-                <div class="input-group">
-                    <label>Doctor ID</label>
-                    <input type="text" id="regDocId" placeholder="e.g. DOC-101">
-                </div>
 
-                <div class="input-group">
-                    <label>Doctor Full Name *</label>
-                    <input type="text" id="regDocName" placeholder="Dr. Firstname Lastname" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Location / Operating Branch</label>
-                    <input type="text" id="regDocLocation" placeholder="e.g. Colombo 03 Branch">
-                </div>
-
-                <div class="input-group">
-                    <label>Contact Telephone No.</label>
-                    <input type="text" id="regDocTel" placeholder="10 Digits Contact">
-                </div>
-
-                <div class="input-group">
-                    <label>Doctor Username</label>
-                    <input type="text" id="regDocUsername" placeholder="e.g. doc.kasun">
-                </div>
-
-                <div class="input-group">
-                    <label>Temporary Password</label>
-                    <input type="password" id="regDocPassword" placeholder="Create Password">
-                </div>
+        <form onsubmit="event.preventDefault(); submitDoctor();" class="form-card-body">
+            <div class="field">
+                <label for="regDocId">Doctor ID</label>
+                <input type="text" id="regDocId" placeholder="e.g. DOC-101">
             </div>
 
-            <button type="submit" class="btn-submit" style="margin-top: 15px;">
-                <i class="fa-solid fa-floppy-disk"></i> Register Doctor & Account
-            </button>
+            <div class="field">
+                <label for="regDocName">Full Name *</label>
+                <input type="text" id="regDocName" placeholder="Dr. Firstname Lastname" required>
+            </div>
+
+            <div class="field">
+                <label for="regDocLocation">Branch / Location</label>
+                <input type="text" id="regDocLocation" placeholder="e.g. Colombo 03 Branch">
+            </div>
+
+            <div class="field">
+                <label for="regDocTel">Contact Number</label>
+                <input type="text" id="regDocTel" placeholder="10 digit contact number">
+            </div>
+
+            <div class="field">
+                <label for="regDocUsername">Portal Username</label>
+                <input type="text" id="regDocUsername" placeholder="e.g. doc.kasun">
+            </div>
+
+            <div class="field">
+                <label for="regDocPassword">Temporary Password</label>
+                <input type="password" id="regDocPassword" placeholder="Create a temporary password">
+            </div>
+
+            <button type="submit" class="btn-primary-flat">Register Doctor</button>
         </form>
+    </div>
 
-        <div class="section-divider" style="margin: 30px 0 20px 0; border-top: 1px solid var(--border);"></div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-            <h4 style="color: var(--secondary); font-size: 16px; font-weight: 700; margin: 0;">Registered Medical Specialists</h4>
+    <div class="data-panel">
+        <div class="data-panel-head">
+            <div>
+                <h3>Doctor Directory</h3>
+                <p>All specialists currently registered on the platform.</p>
+            </div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchDocInput" placeholder="Search Doctors..." onkeyup="filterTable('docTable', 'searchDocInput')">
+                <input type="text" id="searchDocInput" placeholder="Search doctors" onkeyup="filterTable('docTable', 'searchDocInput')">
             </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="data-table" id="docTable">
+        <div class="data-panel-table-wrap">
+            <table id="docTable">
                 <thead>
                     <tr>
                         <th>Doctor ID</th>
-                        <th>Doctor Name</th>
-                        <th>Location / Branch</th>
-                        <th>Telephone No.</th>
-                        <th style="text-align: center;">Actions</th>
+                        <th>Name</th>
+                        <th>Branch</th>
+                        <th>Contact</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="docTableBody">
@@ -73,52 +74,41 @@
     </div>
 </div>
 
-<!-- Edit Doctor Modal Popup -->
-<div id="editDoctorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 99999; justify-content: center; align-items: center;">
-    <div style="background: #ffffff; width: 440px; max-width: 90%; padding: 28px; border-radius: 18px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); border: 1px solid #e2e8f0; animation: modalFadeIn 0.3s ease;">
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
-            <h3 style="color: #0f172a; font-size: 18px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-user-pen" style="color: #0284c7;"></i> Edit Doctor Details
-            </h3>
-            <button type="button" onclick="closeEditDocModal()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #94a3b8; line-height: 1; transition: color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">
+<!-- Edit Doctor Drawer -->
+<div id="editDoctorModal" class="drawer-overlay">
+    <div class="drawer-panel">
+        <div class="drawer-header">
+            <div>
+                <span class="drawer-eyebrow">Specialist Record</span>
+                <h3><i class="fa-solid fa-user-pen"></i> Edit Doctor Details</h3>
+            </div>
+            <button type="button" class="drawer-close" onclick="closeEditDocModal()">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
 
-        <form onsubmit="handleUpdateDoctor(event)">
+        <form onsubmit="handleUpdateDoctor(event)" class="drawer-body">
             <input type="hidden" id="editDocId">
 
-            <div class="input-group" style="margin-bottom: 14px; text-align: left;">
-                <label style="font-size: 12.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 5px;">Doctor Full Name *</label>
-                <input type="text" id="editDocName" style="width: 100%; padding: 11px 14px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box;" required>
+            <div class="input-group">
+                <label>Doctor Full Name *</label>
+                <input type="text" id="editDocName" required>
             </div>
 
-            <div class="input-group" style="margin-bottom: 14px; text-align: left;">
-                <label style="font-size: 12.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 5px;">Location / Operating Branch</label>
-                <input type="text" id="editDocLocation" style="width: 100%; padding: 11px 14px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box;">
+            <div class="input-group">
+                <label>Location / Operating Branch</label>
+                <input type="text" id="editDocLocation">
             </div>
 
-            <div class="input-group" style="margin-bottom: 22px; text-align: left;">
-                <label style="font-size: 12.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 5px;">Telephone Contact</label>
-                <input type="text" id="editDocTel" style="width: 100%; padding: 11px 14px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; box-sizing: border-box;">
+            <div class="input-group">
+                <label>Telephone Contact</label>
+                <input type="text" id="editDocTel">
             </div>
 
-            <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                <button type="button" onclick="closeEditDocModal()" style="padding: 10px 18px; border-radius: 10px; border: 1px solid #cbd5e1; background: #f8fafc; color: #475569; font-weight: 600; font-size: 13.5px; cursor: pointer; transition: all 0.2s;">
-                    Cancel
-                </button>
-                <button type="submit" style="padding: 10px 20px; border-radius: 10px; border: none; background: #0284c7; color: #ffffff; font-weight: 700; font-size: 13.5px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);">
-                    <i class="fa-solid fa-check"></i> Save Changes
-                </button>
+            <div class="drawer-footer">
+                <button type="button" class="btn-cancel" onclick="closeEditDocModal()">Cancel</button>
+                <button type="submit" class="btn-save"><i class="fa-solid fa-check"></i> Save Changes</button>
             </div>
         </form>
     </div>
 </div>
-
-<style>
-@keyframes modalFadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
-</style>

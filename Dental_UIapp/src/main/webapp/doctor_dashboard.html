@@ -4,93 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Portal - Sunrise Dental Clinic</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
 
-    <!-- Header Navbar -->
-    <div class="navbar">
-        <div class="brand">
-            <i class="fa-solid fa-tooth"></i> Sunrise Dental Portal
+    <!-- Top Identity Header -->
+    <header class="app-topbar">
+        <div class="app-topbar-utility">
+            <span><i class="fa-solid fa-shield-halved"></i> Secure Doctor Console</span>
+            <span>Sunrise Dental Clinic &bull; Clinical Portal</span>
         </div>
-        <div class="user-info">
-            <div class="user-profile">
-                <i class="fa-solid fa-user-doctor"></i>
-                <span id="docNavName">Dr. Loading...</span>
+        <div class="app-topbar-main">
+            <div class="brand-lockup">
+                <div class="mark">
+                    <svg viewBox="0 0 100 100" width="20" height="20" fill="currentColor" aria-hidden="true">
+                        <path d="M50 14c-11 0-20.5 6.4-23.8 15.9-2.7 7.8-1.2 14.8 0.6 22.4 1.9 8 4 15.7 5.6 24.9 0.8 4.6 3.6 8.8 7.6 8.8 4.5 0 6.1-5.2 6.9-13.9 0.6-6.4 1.6-11.1 3.1-11.1s2.5 4.7 3.1 11.1c0.8 8.7 2.4 13.9 6.9 13.9 4 0 6.8-4.2 7.6-8.8 1.6-9.2 3.7-16.9 5.6-24.9 1.8-7.6 3.3-14.6 0.6-22.4C70.5 20.4 61 14 50 14z"/>
+                    </svg>
+                </div>
+                <div class="text">
+                    <span>Clinical Portal</span>
+                    <strong>Sunrise Dental Clinic</strong>
+                </div>
             </div>
-            <button onclick="logoutDoctor()" class="btn-logout">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-            </button>
+
+            <div class="identity-cluster">
+                <div class="identity-chip" title="Doctor Account">
+                    <div class="avatar"><i class="fa-solid fa-user-doctor"></i></div>
+                    <div class="meta">
+                        <strong id="docNavName">Dr. Loading...</strong>
+                        <small>Attending Dentist</small>
+                    </div>
+                </div>
+                <button onclick="logoutDoctor()" class="btn-logout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                </button>
+            </div>
         </div>
-    </div>
+    </header>
+
+    <!-- Top Navigation: flat, standalone, text-only links -->
+    <nav class="top-nav">
+        <button id="tab-btn-appointments-tab" class="tab-btn active" onclick="switchTab('appointments-tab'); scrollToSection('appointments-tab');">Appointments</button>
+        <button id="tab-btn-invoices-tab" class="tab-btn" onclick="switchTab('invoices-tab'); scrollToSection('invoices-tab');">Invoices</button>
+        <button id="tab-btn-patient-history-tab" class="tab-btn" onclick="switchTab('patient-history-tab'); scrollToSection('patient-history-tab');">Patient History</button>
+        <button id="tab-btn-doc-guide-tab" class="tab-btn" onclick="switchTab('doc-guide-tab'); scrollToSection('doc-guide-tab');">Help</button>
+    </nav>
 
     <div class="container">
 
-        <!-- Stat Widgets -->
-      <!-- Doctor Dashboard Stat Widgets (5 Cards) -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon blue"><i class="fa-solid fa-calendar-check"></i></div>
-                <div class="stat-details">
-                    <h4>Assigned Appointments</h4>
-                    <p id="statApptCount">0</p>
-                </div>
+        <!-- Dashboard Welcome / Hero Area -->
+        <div class="dash-hero">
+            <div class="dash-hero-text">
+                <span class="eyebrow">Clinical Overview</span>
+                <h1 id="docHeroName">Welcome back</h1>
+                <p>Review today's appointments, update treatment status and manage patient invoices.</p>
             </div>
-
-            <div class="stat-card">
-                <div class="stat-icon teal"><i class="fa-solid fa-clock"></i></div>
-                <div class="stat-details">
-                    <h4>Pending Queue</h4>
-                    <p id="statPendingCount">0</p>
-                </div>
+            <div class="dash-hero-actions">
+                <button type="button" class="btn-hero primary" onclick="switchTab('appointments-tab'); scrollToSection('appointments-tab');">View Appointments</button>
+                <button type="button" class="btn-hero ghost" onclick="switchTab('invoices-tab'); scrollToSection('invoices-tab');">View Invoices</button>
             </div>
-
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fa-solid fa-check-double"></i></div>
-                <div class="stat-details">
-                    <h4>Completed Cases</h4>
-                    <p id="statCompletedCount">0</p>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                <div class="stat-details">
-                    <h4>Issued Invoices</h4>
-                    <p id="statBillCount">0</p>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon orange"><i class="fa-solid fa-sack-dollar"></i></div>
-                <div class="stat-details">
-                    <h4>Total Billed (LKR)</h4>
-                    <p id="statRevenueCount">0.00</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navigation Tabs -->
-        <div class="nav-tabs">
-            <button id="tab-btn-appointments-tab" class="tab-btn active" onclick="switchTab('appointments-tab')">
-                <i class="fa-solid fa-list-check"></i> My Appointments
-            </button>
-            <button id="tab-btn-invoices-tab" class="tab-btn" onclick="switchTab('invoices-tab')">
-                <i class="fa-solid fa-receipt"></i> My Issued Invoices
-            </button>
-            <button id="tab-btn-patient-history-tab" class="tab-btn" onclick="switchTab('patient-history-tab')">
-                <i class="fa-solid fa-clock-rotate-left"></i> Patient History
-            </button>
-             <button id="tab-btn-doc-guide-tab" class="tab-btn" onclick="switchTab('doc-guide-tab')">
-                <i class="fa-solid fa-circle-question"></i> Doctor Guide
-            </button>
         </div>
 
         <!-- Dynamic Content Area -->
-        <div id="doctor-dynamic-content"></div>
+        <div class="workspace-shell">
+            <div id="doctor-dynamic-content"></div>
+        </div>
 
     </div>
 

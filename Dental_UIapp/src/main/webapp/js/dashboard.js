@@ -21,9 +21,7 @@ window.addEventListener('pageshow', function(event) {
 
 // Dynamic Base URL Configuration
 const API_ENDPOINTS = [
-    'http://localhost:8080/Sunrise_Dental_Clinic/api',
-    'http://localhost:8080/Sunrise_Dental_Clinic-1.0-SNAPSHOT/api',
-    'http://localhost:8080/Sunrise%20Dental%20Clinic/api'
+    'http://localhost:8080/Sunrise_Dental_Clinic/webresources'
 ];
 
 let allPatientsCache = [];
@@ -64,6 +62,11 @@ async function loadComponents() {
     const navStaffName = document.getElementById('navStaffName');
     if (navStaffName) {
         navStaffName.innerText = loggedUser;
+    }
+
+    const staffHeroName = document.getElementById('staffHeroName');
+    if (staffHeroName) {
+        staffHeroName.innerText = 'Welcome back, ' + loggedUser;
     }
 
     const files = [
@@ -234,16 +237,14 @@ async function loadDoctors() {
                 tbody.innerHTML += `<tr>
                     <td><strong>${id}</strong></td>
                     <td><strong>${name}</strong></td>
-                    <td><i class="fa-solid fa-location-dot" style="color:#888; margin-right:4px;"></i> ${loc}</td>
-                    <td><i class="fa-solid fa-phone" style="color:#888; margin-right:4px;"></i> ${tel}</td>
+                    <td>${loc}</td>
+                    <td>${tel}</td>
                     <td style="text-align:center;">
-                        <div style="display:inline-flex; gap:8px;">
-                            <button type="button" onclick="openEditDoctorModal('${id}', '${safeName}', '${safeLoc}', '${safeTel}')" 
-                                    style="padding:6px 12px; background:#0284c7; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;" title="Edit Doctor">
+                        <div class="row-actions">
+                            <button type="button" class="icon-btn icon-btn-edit" onclick="openEditDoctorModal('${id}', '${safeName}', '${safeLoc}', '${safeTel}')" title="Edit Doctor">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button type="button" onclick="deleteDoctor('${id}', '${safeName}')" 
-                                    style="padding:6px 12px; background:#ef4444; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;" title="Delete Doctor">
+                            <button type="button" class="icon-btn icon-btn-delete" onclick="deleteDoctor('${id}', '${safeName}')" title="Delete Doctor">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </div>
@@ -348,15 +349,13 @@ async function loadPatients() {
                     <td><strong>${pId}</strong></td>
                     <td><strong>${name}</strong></td>
                     <td>${address}</td>
-                    <td><i class="fa-solid fa-phone" style="color:#888; margin-right:4px;"></i> ${contact}</td>
+                    <td>${contact}</td>
                     <td style="text-align:center;">
-                        <div style="display:inline-flex; gap:8px;">
-                            <button type="button" onclick="openEditPatientModal('${pId}', '${safeName}', '${safeAddr}', '${safeContact}')" 
-                                    style="padding:6px 12px; background:#0284c7; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;" title="Edit Patient">
+                        <div class="row-actions">
+                            <button type="button" class="icon-btn icon-btn-edit" onclick="openEditPatientModal('${pId}', '${safeName}', '${safeAddr}', '${safeContact}')" title="Edit Patient">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button type="button" onclick="deletePatient('${pId}', '${safeName}')" 
-                                    style="padding:6px 12px; background:#ef4444; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;" title="Delete Patient">
+                            <button type="button" class="icon-btn icon-btn-delete" onclick="deletePatient('${pId}', '${safeName}')" title="Delete Patient">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </div>
@@ -473,15 +472,13 @@ async function loadTreatments() {
                 tbody.innerHTML += `<tr>
                     <td><strong>TRT-${id}</strong></td>
                     <td><strong>${name}</strong></td>
-                    <td><strong style="color:#10b981;">LKR ${costFormatted}</strong></td>
+                    <td><strong style="color:var(--success);">LKR ${costFormatted}</strong></td>
                     <td style="text-align:center;">
-                        <div style="display:inline-flex; gap:8px;">
-                            <button type="button" onclick="openEditTreatmentModal('${id}', '${safeName}', ${rawCost})" 
-                                    style="padding:6px 12px; background:#0284c7; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;" title="Edit Treatment">
+                        <div class="row-actions">
+                            <button type="button" class="icon-btn icon-btn-edit" onclick="openEditTreatmentModal('${id}', '${safeName}', ${rawCost})" title="Edit Treatment">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button type="button" onclick="deleteTreatment('${id}', '${safeName}')" 
-                                    style="padding:6px 12px; background:#ef4444; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;" title="Delete Treatment">
+                            <button type="button" class="icon-btn icon-btn-delete" onclick="deleteTreatment('${id}', '${safeName}')" title="Delete Treatment">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </div>
@@ -585,13 +582,10 @@ async function loadAppointments() {
             if (st.toLowerCase() === 'pending') pending++;
 
             let badgeClass = 'badge-pending';
-            let icon = 'fa-regular fa-clock';
-            if (st.toLowerCase() === 'done') { 
-                badgeClass = 'badge-done'; 
-                icon = 'fa-solid fa-spinner'; 
-            } else if (st.toLowerCase() === 'completed') { 
-                badgeClass = 'badge-completed'; 
-                icon = 'fa-solid fa-check-double'; 
+            if (st.toLowerCase() === 'done') {
+                badgeClass = 'badge-done';
+            } else if (st.toLowerCase() === 'completed') {
+                badgeClass = 'badge-completed';
             }
 
             const safeDentist = dentist.replace(/'/g, "\\'");
@@ -603,19 +597,17 @@ async function loadAppointments() {
                 tbody.innerHTML += `<tr>
                     <td><strong>${apptNo}</strong></td>
                     <td><strong>${patName}</strong></td>
-                    <td><i class="fa-solid fa-phone" style="color:var(--text-muted); margin-right:4px;"></i> ${contact}</td>
+                    <td>${contact}</td>
                     <td>${dentist}</td>
                     <td>${treat}</td>
-                    <td><i class="fa-regular fa-calendar" style="color:var(--text-muted); margin-right:4px;"></i> ${dt}</td>
-                    <td><span class="badge ${badgeClass}"><i class="${icon}"></i> ${st}</span></td>
+                    <td>${dt}</td>
+                    <td><span class="badge ${badgeClass}">${st}</span></td>
                     <td style="text-align:center;">
-                        <div style="display:inline-flex; gap:8px;">
-                            <button type="button" onclick="openEditAppointmentModal('${apptNo}', '${safeDentist}', '${safeTreat}', '${safeDt}', '${safeSt}')" 
-                                    style="padding:6px 12px; background:#0284c7; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;" title="Edit Booking">
+                        <div class="row-actions">
+                            <button type="button" class="icon-btn icon-btn-edit" onclick="openEditAppointmentModal('${apptNo}', '${safeDentist}', '${safeTreat}', '${safeDt}', '${safeSt}')" title="Edit Booking">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button type="button" onclick="deleteAppointment('${apptNo}')" 
-                                    style="padding:6px 12px; background:#ef4444; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;" title="Delete Booking">
+                            <button type="button" class="icon-btn icon-btn-delete" onclick="deleteAppointment('${apptNo}')" title="Delete Booking">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </div>
@@ -771,10 +763,10 @@ async function loadBills() {
                     <td>${treat}</td>
                     <td>LKR ${consult}</td>
                     <td>LKR ${treatFee}</td>
-                    <td><strong style="color:#10b981;">LKR ${total}</strong></td>
+                    <td><strong style="color:var(--success);">LKR ${total}</strong></td>
                     <td>
-                        <button type="button" onclick="printSingleBill('${bId}', '${apptNo}', '${safePName}', '${safeTreat}', ${consult}, ${treatFee}, ${total})" 
-                                class="btn-submit" style="padding: 7px 14px; font-size:12px; background:var(--primary);">
+                        <button type="button" onclick="printSingleBill('${bId}', '${apptNo}', '${safePName}', '${safeTreat}', ${consult}, ${treatFee}, ${total})"
+                                class="btn-print">
                             <i class="fa-solid fa-print"></i> Print Receipt
                         </button>
                     </td>
@@ -1031,16 +1023,14 @@ async function loadDoctors() {
                 tbody.innerHTML += `<tr>
                     <td><strong>${id}</strong></td>
                     <td><strong>${name}</strong></td>
-                    <td><i class="fa-solid fa-location-dot" style="color:#888; margin-right:4px;"></i> ${loc}</td>
-                    <td><i class="fa-solid fa-phone" style="color:#888; margin-right:4px;"></i> ${tel}</td>
+                    <td>${loc}</td>
+                    <td>${tel}</td>
                     <td style="text-align:center;">
-                        <div style="display:inline-flex; gap:8px;">
-                            <button type="button" onclick="openEditDoctorModal('${id}', '${safeName}', '${safeLoc}', '${safeTel}')" 
-                                    style="padding:6px 12px; background:#0284c7; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;" title="Edit Doctor">
+                        <div class="row-actions">
+                            <button type="button" class="icon-btn icon-btn-edit" onclick="openEditDoctorModal('${id}', '${safeName}', '${safeLoc}', '${safeTel}')" title="Edit Doctor">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button type="button" onclick="deleteDoctor('${id}', '${safeName}')" 
-                                    style="padding:6px 12px; background:#ef4444; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;" title="Delete Doctor">
+                            <button type="button" class="icon-btn icon-btn-delete" onclick="deleteDoctor('${id}', '${safeName}')" title="Delete Doctor">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </div>
@@ -1106,6 +1096,11 @@ async function loadComponents() {
     const navStaffName = document.getElementById('navStaffName');
     if (navStaffName) {
         navStaffName.innerText = loggedUser;
+    }
+
+    const staffHeroName = document.getElementById('staffHeroName');
+    if (staffHeroName) {
+        staffHeroName.innerText = 'Welcome back, ' + loggedUser;
     }
 
     const files = [
@@ -1266,6 +1261,20 @@ function logoutStaff() {
     localStorage.clear();
     sessionStorage.clear();
     window.location.replace('login.html');
+}
+
+// 12. Smooth-scroll helper for the continuous staff dashboard nav.
+// switchTab() still runs first (keeps its existing active-state/data-refresh
+// behaviour) — this only adds the visible scroll for the now-always-visible sections.
+function scrollToSection(tabId) {
+    let el = document.getElementById(tabId);
+    if (!el && tabId === 'schedule-details') el = document.getElementById('appointments');
+    if (!el && tabId === 'appointments') el = document.getElementById('schedule-details');
+    if (!el && tabId === 'add-doctor') el = document.getElementById('register-doctor');
+    if (!el && tabId === 'add-appointment') el = document.getElementById('new-appointment');
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 window.addEventListener('DOMContentLoaded', loadComponents);

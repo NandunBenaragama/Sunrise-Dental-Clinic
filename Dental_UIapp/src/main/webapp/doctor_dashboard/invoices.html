@@ -1,30 +1,34 @@
 <div id="invoices-tab" class="tab-content">
-    <div class="card-header">
-        <div class="card-title">
-            <i class="fa-solid fa-receipt"></i> Invoices Issued
-        </div>
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="billSearch" onkeyup="filterTable('billsTable', 'billSearch')" placeholder="Search Invoices...">
-        </div>
-    </div>
 
-    <div class="table-responsive">
+    <div class="data-panel">
+        <div class="data-panel-head">
+            <div>
+                <h3>My Invoices</h3>
+                <p>Every invoice you've issued for your patients.</p>
+            </div>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="billSearch" onkeyup="filterTable('billsTable', 'billSearch')" placeholder="Search invoices">
+            </div>
+        </div>
+
+        <div class="data-panel-table-wrap">
         <table id="billsTable">
             <thead>
                 <tr>
                     <th>Receipt ID</th>
                     <th>Appt No.</th>
-                    <th>Patient Name</th>
+                    <th>Patient</th>
                     <th>Treatment</th>
-                    <th>Consultation Fee</th>
+                    <th>Consultation</th>
                     <th>Treatment Fee</th>
-                    <th>Total Amount</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody id="docBillBody">
                 <tr><td colspan="7" style="text-align:center;">Loading invoices...</td></tr>
             </tbody>
         </table>
+        </div>
     </div>
 </div>

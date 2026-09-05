@@ -1,23 +1,26 @@
 <div id="appointments-tab" class="tab-content active">
-    <div class="card-header">
-        <div class="card-title">
-            <i class="fa-solid fa-list-check"></i> Patient Appointments Assigned to Me
-        </div>
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="appointmentSearch" onkeyup="filterTable('appointmentTable', 'appointmentSearch')" placeholder="Search Patients or Appt No...">
-        </div>
-    </div>
 
-    <div class="table-responsive">
+    <div class="data-panel">
+        <div class="data-panel-head">
+            <div>
+                <h3>My Appointments</h3>
+                <p>Update a patient's status or calculate their bill directly from the queue.</p>
+            </div>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="appointmentSearch" onkeyup="filterTable('appointmentTable', 'appointmentSearch')" placeholder="Search patients or appt no.">
+            </div>
+        </div>
+
+        <div class="data-panel-table-wrap">
         <table id="appointmentTable">
             <thead>
                 <tr>
                     <th>Appt No.</th>
                     <th>Patient ID</th>
-                    <th>Patient Name</th>
+                    <th>Patient</th>
                     <th>Treatment</th>
-                    <th>Date & Time</th>
+                    <th>Date &amp; Time</th>
                     <th>Status</th>
                     <th>Update Status</th>
                     <th>Action</th>
@@ -27,13 +30,19 @@
                 <tr><td colspan="8" style="text-align:center;">Loading appointments...</td></tr>
             </tbody>
         </table>
+        </div>
     </div>
 
     <!-- DOCTOR BILL CALCULATOR DISPLAY -->
-    <div id="invoiceSection" class="invoice-box" style="display:none; margin-top:25px;">
+    <div id="invoiceSection" class="invoice-box" style="display:none;">
+        <div class="billing-steps">
+            <div class="step done"><span class="num">1</span> Calculate Fee</div>
+            <div class="step done"><span class="num">2</span> Review Summary</div>
+            <div class="step"><span class="num">3</span> Issue Invoice</div>
+        </div>
         <div class="invoice-header">
-            <h4><i class="fa-solid fa-file-invoice-dollar"></i> Patient Billing Summary</h4>
-            <span class="badge badge-completed"><i class="fa-solid fa-shield-halved"></i> Live Calculated</span>
+            <h4>Patient Billing Summary</h4>
+            <span class="badge badge-completed">Live Calculated</span>
         </div>
 
         <form id="saveBillForm" onsubmit="handleSaveBill(event)">
@@ -74,9 +83,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-submit">
-                <i class="fa-solid fa-floppy-disk"></i> Issue & Save Invoice Receipt
-            </button>
+            <button type="submit" class="btn-primary-flat">Issue Invoice</button>
         </form>
     </div>
 </div>
